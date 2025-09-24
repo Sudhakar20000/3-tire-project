@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pending Employees Report</title>
+</head>
+<body>
+<p>Please find below pending SOWs/POs.</p>
+
+<!-- T&M Engagements Section -->
+<div th:if="${employees != null and !employees.isEmpty()}">
+    <h3>T&M Engagements:</h3>
+    <table border="1">
+        <tr style="background-color: #f8d7da;">
+            <th>Employee Id</th>
+            <th>Employee Name</th>
+            <th>Mashreq Reporting Manager</th>
+            <th>Project Name</th>
+            <th>Project Type</th>
+<!--            <th>Contract Start Date</th>-->
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>SOW Status</th>
+            <th>WO Status</th>
+            <th>PO Status</th>
+            <th>Comments</th>
+        </tr>
+        <tr th:each="employee : ${employees}">
+            <td th:text="${employee.employeeId}"></td>
+            <td th:text="${employee.employeeName}"></td>
+            <td th:text="${employee.mashreqReportingManager}"></td>
+            <td th:text="${employee.projectName}"></td>
+            <td th:text="${employee.projectType}"></td>
+<!--            <td th:text="${#temporals.format(employee.contractStartDate, 'dd-MM-yyyy')}"></td>-->
+            <td th:text="${#temporals.format(employee.startDate, 'dd-MM-yyyy')}"></td>
+            <td th:text="${#temporals.format(employee.endDate, 'dd-MM-yyyy')}"></td>
+            <td th:text="${employee.sowStatus}"></td>
+            <td th:text="${employee.woStatus}"></td>
+            <td th:text="${employee.poStatus}"></td>
+            <td th:text="${employee.comments}"></td>
+        </tr>
+    </table>
+</div>
+
+<br/>
+
+<!-- Fixed Projects Section -->
+<div th:if="${projects != null and !projects.isEmpty()}">
+    <h3>Fixed Projects:</h3>
+    <table border="1">
+        <tr style="background-color: #f8d7da;">
+            <th>Mashreq Reporting Manager</th>
+            <th>Project Name</th>
+            <th>Project Type</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>SOW Status</th>
+            <th>WO Status</th>
+            <th>PO Status</th>
+            <th>Comments</th>
+        </tr>
+        <tr th:each="project : ${projects}">
+            <td th:text="${project.mashreqReportingManager}"></td>
+            <td th:text="${project.projectName}"></td>
+            <td th:text="${project.projectType}"></td>
+            <td th:text="${#temporals.format(project.startDate, 'dd-MM-yyyy')}"></td>
+            <td th:text="${#temporals.format(project.endDate, 'dd-MM-yyyy')}"></td>
+            <td th:text="${project.sowStatus}"></td>
+            <td th:text="${project.woStatus}"></td>
+            <td th:text="${project.poStatus}"></td>
+            <td th:text="${project.comments}"></td>
+        </tr>
+    </table>
+</div>
+
+<!-- Optional: Display message if both lists are empty -->
+<div th:if="${(employees == null or employees.isEmpty()) and (projects == null or projects.isEmpty())}">
+    <p>No pending T&M or Fixed Projects found.</p>
+</div>
+</body>
+</html>
